@@ -12,7 +12,7 @@
 DROP TABLE IF EXISTS player CASCADE;
 CREATE TABLE player (
     player_id serial primary key,
-    name char(50)
+    name varchar(50)
 );
 
 DROP TABLE IF EXISTS match CASCADE;

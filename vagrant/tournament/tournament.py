@@ -91,11 +91,11 @@ def playerStandings():
         matches: the number of matches the player has played
     """
     sql = """
-          SELECT (player.player_id, player.name, COUNT(match.winner_id)) as cnt
+          SELECT player.player_id, player.name, player_wins.wins_cnt, player_matches.matches_cnt
           FROM player
-          LEFT JOIN match ON player.player_id = match.winner_id
-          GROUP BY player.player_id
-          ORDER BY cnt;
+          LEFT JOIN player_wins ON player.player_id = player_wins.player_id
+          LEFT JOIN player_matches on player.player_id = player_matches.player_id
+          ORDER BY player_wins.wins_cnt;
           """
     conn = connect()
     cur = conn.cursor()
@@ -114,6 +114,15 @@ def reportMatch(winner, loser):
       winner:  the id number of the player who won
       loser:  the id number of the player who lost
     """
+    sql = """
+          INSERT INTO match (winner_id, loser_id) VALUES (%s, %s);
+          """
+    conn = connect()
+    cur = conn.cursor()
+    cur.execute(sql, (winner, loser))
+    cur.close()
+    conn.commit()
+    conn.close()
 
 
 def swissPairings():
@@ -131,3 +140,14 @@ def swissPairings():
         id2: the second player's unique id
         name2: the second player's name
     """
+    standings = playerStandings()
+    pairings = []
+
+    if len(standings) % 2 == 1:
+        raise ValueError("An uneven number of players are registered!")
+
+    for i in xrange(0, len(standings), 2):
+        pairings.append((standings[i][0], standings[i][1],
+                         standings[i+1][0], standings[i][1]))
+
+    return pairings

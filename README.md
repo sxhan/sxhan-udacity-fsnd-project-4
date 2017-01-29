@@ -9,7 +9,7 @@ swiss system game tournament.
 - [VirtualBox](https://www.virtualbox.org/)
 
 ## Setup
-1. Clone the repository at https://github.com/sxhan/udacity-fsnd-project-4:
+1. Clone the repository at https://github.com/sxhan/udacity-fsnd-project-4
 2. cd into the project directory and then the vagrant directory: `cd udacity-fsnd-project-4/vagrant`
 3. Launch the Vagrant VM: `vagrant up`. This must be done inside the vagrant directory, where there is a file called `Vagrantfile`
 4. Login to the vm: `vagrant ssh`

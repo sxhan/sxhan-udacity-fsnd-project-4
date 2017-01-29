@@ -22,6 +22,7 @@ CREATE TABLE match (
     loser_id int references player (player_id)
 );
 
+-- list of all registered players sorted by wins
 DROP VIEW IF EXISTS player_wins CASCADE;
 CREATE VIEW player_wins AS
 SELECT player.player_id as player_id, COUNT(match.winner_id) as wins_cnt
@@ -30,6 +31,7 @@ LEFT JOIN match ON player.player_id = match.winner_id
 GROUP BY player.player_id
 ORDER BY wins_cnt;
 
+-- list of all registered players sorted by number of matches played
 DROP VIEW IF EXISTS player_matches CASCADE;
 CREATE VIEW player_matches AS
 SELECT player.player_id as player_id, COUNT(match.winner_id) as matches_cnt

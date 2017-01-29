@@ -91,7 +91,8 @@ def playerStandings():
         matches: the number of matches the player has played
     """
     sql = """
-          SELECT player.player_id, player.name, player_wins.wins_cnt, player_matches.matches_cnt
+          SELECT player.player_id, player.name,
+                 player_wins.wins_cnt, player_matches.matches_cnt
           FROM player
           LEFT JOIN player_wins ON player.player_id = player_wins.player_id
           LEFT JOIN player_matches on player.player_id = player_matches.player_id
@@ -146,6 +147,7 @@ def swissPairings():
     if len(standings) % 2 == 1:
         raise ValueError("An uneven number of players are registered!")
 
+    # Returns player pairing tuples based presorted results of sql query
     for i in xrange(0, len(standings), 2):
         pairings.append((standings[i][0], standings[i][1],
                          standings[i+1][0], standings[i][1]))

@@ -22,8 +22,8 @@ def deleteMatches():
     cur.close()
     conn.commit()
     conn.close()
-    # why does this version of psycopg2 not have context managers for
-    # connections???
+    # The version of psycopg2 installed in the VM does not support context
+    # managers. whyyyyyyy
 
 
 def deletePlayers():
@@ -48,13 +48,10 @@ def countPlayers():
     conn = connect()
     cur = conn.cursor()
     cur.execute(sql)
-    retval = cur.fetchall()
+    retval = cur.fetchone()[0]
     cur.close()
     conn.close()
-    if retval:
-        return retval[0][0]
-    else:
-        return
+    return retval
 
 
 def registerPlayer(name):
@@ -91,18 +88,12 @@ def playerStandings():
         matches: the number of matches the player has played
     """
     sql = """
-          SELECT player.player_id, player.name,
-                 player_wins.wins_cnt, player_matches.matches_cnt
-          FROM player
-          LEFT JOIN player_wins ON player.player_id = player_wins.player_id
-          LEFT JOIN player_matches on player.player_id = player_matches.player_id
-          ORDER BY player_wins.wins_cnt;
+          SELECT * FROM player_standings;
           """
     conn = connect()
     cur = conn.cursor()
     cur.execute(sql)
     retval = cur.fetchall()
-    print retval
     cur.close()
     conn.close()
     return retval

@@ -16,7 +16,6 @@ swiss system game tournament.
 5. cd to the project directory: `cd /vagrant`
 6. Start PostgreSQL set up database/table:
  - Start the PostgreSQL interactive terminal: `psql`
- - Create a database called 'tournament': `CREATE DATABASE tournament;`
  - Run the script for creating tables and views: `\i tournament/tournament.sql`
  - Exit: `\q`
 7. Run a test suite to verify the tournament.py module: `python tournament/tournament_test.py`

@@ -1,4 +1,4 @@
-# Udaciy Full Stack Web Developer Nanodegree Project 4: Tournament Results
+# Udacity Full Stack Web Developer Nanodegree Project 4: Tournament Results
 ==========================================================================
 This project consists of a vagrant VM, a PostgreSQL migration file, and a
 corresponding python module to enable tracking of players and matches in a
